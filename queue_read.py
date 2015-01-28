@@ -6,8 +6,11 @@ READ_MODE = "r"
 FILE_MODE = READ_MODE
 
 def readQueue():
+	"""
+	Read file and return Array of lines 
+	"""
 	f = open(FILE_NAME, FILE_MODE)
-	lines = [line.strip().replace(" ","") for line in f]
+	lines = [getTrueData(line) for line in f]
 	len_lines = len(lines)
 	if settings.DEBUG:
 		print "======= QUEUE LINES ============"
@@ -20,19 +23,22 @@ def getTrueData(line):
 	Input: line ['1111timestamp','value']
 	Return 2 values: timestamp, measure
 	"""
-	array_line = line.split(",")
+	formated_line = line.strip().replace(" ","")
+	array_line = formated_line.split(",")
 	timestamp = int(array_line[0])
 	measure = array_line[1]
-	return timestamp, measure
+	return (timestamp, measure)
 
 def removeLines(num):
+	"""
+	Remove <num> numbers of lines from start of the file
+	"""
 	lines = open(FILE_NAME).readlines()
 	open(FILE_NAME, "w").writelines(lines[len_lines-1:-1])	
 
 while 1:
 	lines, len_lines = readQueue()
-	for line in lines:
-		t, m = getTrueData(line)
+	for t,m in lines:
 		if settings.DEBUG:
 			print "====== TRUE DATA OF A LINE ========"
 			print "time:", t
