@@ -11,7 +11,7 @@ def readQueue():
 	Read file and return Array of tuples (lines)
 	"""
 	f = open(FILE_NAME, FILE_MODE)
-	lines = [getTrueData(line) for line in f]
+	lines = [getFormatedData(line) for line in f]
 	len_lines = len(lines)
 	if settings.DEBUG:
 		print "======= QUEUE LINES ============"
@@ -19,7 +19,7 @@ def readQueue():
 		print "================================"
 	return lines, len_lines
 
-def getTrueData(line):
+def getFormatedData(line):
 	"""
 	Input: line "1111timestamp, value\n"
 	Return 2 values: timestamp, measure
