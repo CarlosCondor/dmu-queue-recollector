@@ -4,10 +4,11 @@ from time import sleep
 FILE_NAME = settings.QUEUE_FILE_NAME
 READ_MODE = "r"
 FILE_MODE = READ_MODE
+READ_DELAY = 5
 
 def readQueue():
 	"""
-	Read file and return Array of lines 
+	Read file and return Array of tuples (lines)
 	"""
 	f = open(FILE_NAME, FILE_MODE)
 	lines = [getTrueData(line) for line in f]
@@ -20,7 +21,7 @@ def readQueue():
 
 def getTrueData(line):
 	"""
-	Input: line ['1111timestamp','value']
+	Input: line "1111timestamp, value\n"
 	Return 2 values: timestamp, measure
 	"""
 	formated_line = line.strip().replace(" ","")
@@ -45,6 +46,8 @@ while 1:
 			print "measure:", m
 			print "==================================="
 
+	# Remove read lines
 	removeLines(len_lines)
+
 	print;print;print;print
-	sleep(5)
+	sleep(READ_DELAY)
