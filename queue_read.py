@@ -35,7 +35,7 @@ def removeLines(num):
 	Remove <num> numbers of lines from start of the file
 	"""
 	lines = open(FILE_NAME).readlines()
-	open(FILE_NAME, "w").writelines(lines[len_lines-1:-1])	
+	open(FILE_NAME, "w").writelines(lines[num:])	
 
 while 1:
 	lines, len_lines = readQueue()
